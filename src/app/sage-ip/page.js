@@ -1,6 +1,8 @@
 "use client";
+
 import { useEffect, useState } from "react";
-import ipAxiosHandler from "@/lib/ipAxiosHandler";
+import ipAxiosHandler from "@/lib/ip-axios";
+
 
 export default async function sageIp() {
     const [data, setData] = useState(null);
