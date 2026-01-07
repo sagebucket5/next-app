@@ -1,19 +1,21 @@
 "use client";
 
 import { useEffect, useState } from "react";
-import ipAxiosHandler from "@/lib/ip-axios";
 
+export default function Page() {
+  const [data, setData] = useState(null);
 
-export default async function sageIp() {
-    const [data, setData] = useState(null);
+  useEffect(() => {
+    (async () => {
+      const res = await fetch("/api/geo", { cache: "no-store" });
+      const json = await res.json();
+      setData(json);
+    })();
+  }, []);
 
-    useEffect(() => {
-        ipAxiosHandler().then(setData);
-    }, []);
-
-    return (<>
-        <h2>Used Axios get</h2>
-        <pre>{data ? JSON.stringify(data, null, 2) : "Loading..."}</pre>
-
-    </>);
+  return (
+    <pre className="p-4 text-sm">
+      {data ? JSON.stringify(data, null, 2) : "Loading..."}
+    </pre>
+  );
 }
